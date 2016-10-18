@@ -3,7 +3,7 @@
 $LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 require 'rubocop/rspec/version'
 
-Gem::Specification.new do |spec|
+Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.name = 'rubocop-rspec'
   spec.summary = 'Code style checking for RSpec files'
   spec.description = <<-end_description
