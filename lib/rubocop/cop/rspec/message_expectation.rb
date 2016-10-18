@@ -8,18 +8,18 @@ module RuboCop
       # This cop can be configured in your configuration using the
       # `EnforcedStyle` option and supports `--auto-gen-config`.
       #
-      # @example `EnforcedStyle: allow`
+      # @example `EnforcedStyle: have_received`
       #
       #   # bad
       #   expect(foo).to receive(:bar)
       #
       #   # good
-      #   allow(foo).to receive(:bar)
+      #   expect(foo).to have_received(:bar)
       #
-      # @example `EnforcedStyle: expect`
+      # @example `EnforcedStyle: receive`
       #
       #   # bad
-      #   allow(foo).to receive(:bar)
+      #   expect(foo).to have_received(:bar)
       #
       #   # good
       #   expect(foo).to receive(:bar)
@@ -29,13 +29,11 @@ module RuboCop
 
         MSG = 'Prefer `%s` for setting message expectations.'.freeze
 
-        SUPPORTED_STYLES = %w(allow expect).freeze
+        SUPPORTED_STYLES = %w(have_received receive).freeze
 
         def_node_matcher :message_expectation, <<-PATTERN
-          (send $(send nil {:expect :allow} ...) :to #receive_message?)
+          (send (send nil :expect ...) :to $(send nil {:receive :have_received} ...))
         PATTERN
-
-        def_node_search :receive_message?, '(send nil :receive ...)'
 
         def on_send(node)
           message_expectation(node) do |match|

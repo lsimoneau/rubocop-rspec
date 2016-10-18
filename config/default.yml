@@ -98,10 +98,10 @@ RSpec/MessageChain:
 RSpec/MessageExpectation:
   Description: Checks for consistent message expectation style.
   Enabled: true
-  EnforcedStyle: allow
+  EnforcedStyle: have_received
   SupportedStyles:
-  - allow
-  - expect
+  - have_received
+  - receive
 
 RSpec/MultipleDescribes:
   Description: Checks for multiple top level describes.
